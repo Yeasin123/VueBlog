@@ -3,20 +3,34 @@
     <form class="register">
       <p class="login-register">
         Already have an account?
-        <router-link class="router-link" :to="{ name: 'Login' }">Login</router-link>
+        <router-link class="router-link" :to="{ name: 'Login' }"
+          >Login</router-link
+        >
       </p>
       <h2>Create Your FireBlog Account</h2>
       <div class="inputs">
         <div class="input">
-          <input type="text" placeholder="First Name" v-model="firstName" />
+          <input
+            type="text"
+            placeholder="First Name"
+            v-model="firstName"
+          />
           <user class="icon" />
         </div>
         <div class="input">
-          <input type="text" placeholder="Last Name" v-model="lastName" />
+          <input
+            type="text"
+            placeholder="Last Name"
+            v-model="lastName"
+          />
           <user class="icon" />
         </div>
         <div class="input">
-          <input type="text" placeholder="Username" v-model="username" />
+          <input
+            type="text"
+            placeholder="userName"
+            v-model="userName"
+          />
           <user class="icon" />
         </div>
         <div class="input">
@@ -24,7 +38,11 @@
           <email class="icon" />
         </div>
         <div class="input">
-          <input type="password" placeholder="Password" v-model="password" />
+          <input
+            type="password"
+            placeholder="Password"
+            v-model="password"
+          />
           <password class="icon" />
         </div>
         <div v-show="error" class="error">{{ this.errorMsg }}</div>
@@ -40,6 +58,9 @@
 import email from "../assets/Icons/envelope-regular.svg";
 import password from "../assets/Icons/lock-alt-solid.svg";
 import user from "../assets/Icons/user-alt-light.svg";
+import firebase from "firebase/app";
+import "firebase/auth";
+import db from "../firebase/firebaseInit";
 export default {
   name: "Register",
   components: {
@@ -49,17 +70,51 @@ export default {
   },
   data() {
     return {
-      firstName: "",
-      lastName: "",
-      username: "",
-      email: "",
-      password: "",
-      error: null,
-      errorMsg: "",
+        firstName: "",
+        lastName: "",
+        userName: "",
+        email: "",
+        password: "",
+        error: null,
+       errorMsg: "",
     };
   },
   methods: {
-   
+    async register() {
+      if (
+        this.firstName !== "" &&
+        this.lastName !== "" &&
+        this.userName !== "" &&
+        this.email !== "" &&
+        this.password !== ""
+      ) {
+        const firbaseAuth = await firebase.auth();
+        const createUser = await firbaseAuth.createUserWithEmailAndPassword(
+          this.email,
+          this.password
+        );
+        const result = await createUser
+        const database = db.collection('user').doc(result.user.uid)
+        await database.set({
+          firstName:this.firstName,
+          lastName:this.lastName,
+          userName:this.userName,
+          email:this.email,
+          password:this.password,
+        })
+        
+        this.firstName = "" 
+        this.lastName = "" 
+        this.userName = "" 
+        this.email = "" 
+        this.$router.push({name:'Home'})
+        console.log('OK');
+
+      } else {
+        this.error = true;
+        this.errorMsg = "Pleace filled all the inputs";
+      }
+    },
   },
 };
 </script>
