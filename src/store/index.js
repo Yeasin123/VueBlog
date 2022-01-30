@@ -26,8 +26,13 @@ export default new Vuex.Store({
                 blogDate: "4-1-2022",
             },
         ],
+        editPostBlog: null
     },
-    mutations: {},
+    mutations: {
+        TOOGLE_EDIT_POST(state, payload) {
+            state.editPostBlog = payload
+        }
+    },
     actions: {},
     modules: {}
 })

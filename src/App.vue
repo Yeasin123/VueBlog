@@ -1,9 +1,9 @@
 <template>
   <div class="app-wrapper">
     <div class="app">
-      <navigation></navigation>
+      <navigation v-if="!navigationRoute"></navigation>
       <router-view />
-      <main-footer></main-footer>
+      <main-footer v-if="!navigationRoute"></main-footer>
     </div>
   </div>
 </template>
@@ -16,12 +16,28 @@ export default {
   name: "app",
   components: {Navigation, MainFooter},
   data() {
-    return {};
+    return {
+      navigationRoute:null
+    };
   },
-  created() {},
-  mounted() {},
-  methods: {},
-  watch: {},
+  created() {
+    this.checkRoute()
+    console.log('OK');
+  },
+  methods: {
+    checkRoute() {
+      if(this.$route.name === 'ForgetPassword' || this.$route.name === 'Register' || this.$route.name === 'Login') {
+        this.navigationRoute = true
+        return
+      }
+      this.navigationRoute = false
+    }
+  },
+  watch: {
+    $route() {
+      this.checkRoute()
+    }
+  },
 };
 </script>
 

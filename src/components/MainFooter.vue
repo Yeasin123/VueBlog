@@ -6,16 +6,10 @@
           <router-link class="header" :to="{ name: 'Home' }">FireBlogs</router-link>
           <ul>
             <li>
-              <a href="#"><youTube class="svg-icon"/></a>
-            </li>
-            <li>
-              <a href="#"><twitter class="svg-icon"/></a>
-            </li>
-            <li>
               <a href="#"><instagram class="svg-icon"/></a>
             </li>
             <li>
-              <a href="#"><linkedin class="svg-icon"/></a>
+              <a href="https://www.linkedin.com/in/md-yeasin-hossain-imran-a120b8134/"><linkedin class="svg-icon"/></a>
             </li>
           </ul>
         </div>
@@ -36,14 +30,10 @@
 </template>
 
 <script>
-import youTube from "../assets/Icons/youtube-brands.svg";
-import twitter from "../assets/Icons/twitter-brands.svg";
 import instagram from "../assets/Icons/instagram-brands.svg";
 import linkedin from "../assets/Icons/linkedin-brands.svg";
 export default {
   components: {
-    youTube,
-    twitter,
     instagram,
     linkedin,
   },

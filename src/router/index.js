@@ -18,56 +18,89 @@ const routes = [{
         path: "/",
         name: "Home",
         component: Home,
+        meta: {
+            title: 'Home'
+        }
     },
     {
         path: "/blog",
         name: "Blogs",
         component: Blog,
+        meta: {
+            title: 'Blog'
+        }
     },
     {
         path: "/admin",
         name: "Admin",
         component: Admin,
+        meta: {
+            title: 'Admin'
+        }
     },
     {
         path: "/blog-preview",
         name: "BlogPreview",
         component: BlogPreview,
+        meta: {
+            title: 'BlogPreview'
+        }
     },
     {
         path: "/create-post",
         name: "CreatePost",
         component: CreatePost,
+        meta: {
+            title: 'CreatePost'
+        }
     },
     {
         path: "/edit-blog",
         name: "EditBlog",
         component: EditBlog,
+        meta: {
+            title: 'EditBlog'
+        }
     },
     {
         path: "/forget-password",
         name: "ForgetPassword",
         component: ForgetPassword,
+        meta: {
+            title: 'ForgetPassword'
+        }
     },
     {
         path: "/login",
         name: "Login",
         component: Login,
+        meta: {
+            title: 'Login'
+        }
     },
     {
         path: "/register",
         name: "Register",
         component: Register,
+        meta: {
+            title: 'Register'
+        }
     },
     {
         path: "/profile",
         name: "Profile",
         component: Profile,
+        meta: {
+            title: 'Profile'
+        }
     },
     {
         path: "/view-blog",
         name: "ViewBlog",
         component: ViewBlog,
+        meta: {
+            title: 'ViewBlog'
+        }
     },
 
 ];
@@ -77,5 +110,10 @@ const router = new VueRouter({
     base: process.env.BASE_URL,
     routes,
 });
+
+router.beforeEach((to, from, next) => {
+    document.title = `FireBlog | ${to.meta.title}  `
+    next();
+})
 
 export default router;
