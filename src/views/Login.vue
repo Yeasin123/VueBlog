@@ -47,7 +47,8 @@ export default {
   },
   methods: {
     logIn() {
-      firebase.auth().signInWithEmailAndPassword(this.email,this.password)
+      if(this.email !== "" && this.password !== "") {
+        firebase.auth().signInWithEmailAndPassword(this.email,this.password)
       .then(() => {
         this.$router.push({name:'Home'})
         this.error = false
@@ -57,6 +58,12 @@ export default {
         this.error = true
         this.errorMsg = error.message
       })
+      }
+      else{
+        this.error = true
+        this.errorMsg = "Please filled all the recourd"
+      }
+      
     }
   },
 };
