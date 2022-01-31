@@ -1,5 +1,6 @@
 <template>
   <div class="form-wrap">
+    <loading v-if="modalActive"></loading>
     <form class="register">
       <p class="login-register">
         Already have an account?
@@ -61,12 +62,14 @@ import user from "../assets/Icons/user-alt-light.svg";
 import firebase from "firebase/app";
 import "firebase/auth";
 import db from "../firebase/firebaseInit";
+import Loading from '../components/Loading.vue';
 export default {
   name: "Register",
   components: {
     email,
     password,
     user,
+    Loading,
   },
   data() {
     return {
@@ -76,7 +79,8 @@ export default {
         email: "",
         password: "",
         error: null,
-       errorMsg: "",
+        errorMsg: "",
+        modalActive:false
     };
   },
   methods: {
@@ -95,18 +99,18 @@ export default {
         );
         const result = await createUser
         const database = db.collection('user').doc(result.user.uid)
+        this.modalActive=true
         await database.set({
           firstName:this.firstName,
           lastName:this.lastName,
           userName:this.userName,
           email:this.email,
-          password:this.password,
         })
-        
         this.firstName = "" 
         this.lastName = "" 
         this.userName = "" 
         this.email = "" 
+        this.password = "" 
         this.$router.push({name:'Home'})
         console.log('OK');
 

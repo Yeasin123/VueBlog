@@ -42,18 +42,18 @@ export default {
         title: "hello",
         blogPost: "Lorem ipsum dolor sit amet.",
         welcomeScreen: true,
-        photo: "coding",
+        photo: "car",
       },
       blogPosts: [
         {
           title: " This is first blog",
           blogHtml: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          blogCoverPhoto: "beautiful-stories",
+          blogCoverPhoto: "penguin",
         },
         {
           title: " This is seconde blog",
           blogHtml: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          blogCoverPhoto: "designed-for-everyone",
+          blogCoverPhoto: "fruit",
         },
       ],
     };

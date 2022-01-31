@@ -10,8 +10,9 @@
 
 <script>
 import MainFooter from './components/MainFooter.vue';
-
 import Navigation from './components/Navigation.vue';
+import firebase from 'firebase/app'
+import  'firebase/auth'
 export default {
   name: "app",
   components: {Navigation, MainFooter},
@@ -22,7 +23,7 @@ export default {
   },
   created() {
     this.checkRoute()
-    console.log('OK');
+    console.log(firebase.auth().currentUser);
   },
   methods: {
     checkRoute() {

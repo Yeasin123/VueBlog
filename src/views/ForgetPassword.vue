@@ -15,8 +15,9 @@
             <input type="text" placeholder="Email" v-model="email" />
             <email class="icon" />
           </div>
+            <div v-show="errors" class="error">{{errorMessage}}</div>
         </div>
-        <button>Reset</button>
+        <button @click.prevent="passwordReset">Reset</button>
         <div class="angle"></div>
       </form>
       <div class="background"></div>
@@ -28,6 +29,8 @@
 import email from "../assets/Icons/envelope-regular.svg";
 import Loading from '../components/Loading.vue';
 import Modal from '../components/Modal.vue';
+import firebase from "firebase/app"
+import "firebase/auth"
 
 export default {
   name: "ForgotPassword",
@@ -35,8 +38,10 @@ export default {
     return {
       email: "",
       modalActive: false,
-      modalMessage: "Password reset successfully",
+      modalMessage: "",
       loading: null,
+      errorMessage:"",
+      errors:null
     };
   },
   components: {
@@ -48,6 +53,28 @@ export default {
     methods: {
       modalClose() {
       this.modalActive = false
+      this.email=""
+   },
+   passwordReset() {
+      if(this.email !== "") {
+         this.loading=true
+         firebase.auth().sendPasswordResetEmail(this.email)
+       .then(() => {
+         this.modalActive = true
+         this.loading = false
+         this.modalMessage = "If your email is valid! then check your email to reset the password"
+         this.$router.push({name:'Login'})
+      })
+      .catch((error) => {
+        this.loading = false
+        this.modalActive = true
+        this.modalMessage = error.message
+      })
+      }
+      else{
+        this.errors = true
+         this.errorMessage = "Please enter your email"
+      }
    }
   },
 };
