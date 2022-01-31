@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-
+import firebase from "firebase/app";
+import "firebase/auth";
+import db from "../firebase/firebaseInit";
 Vue.use(Vuex)
 
 export default new Vuex.Store({
@@ -26,13 +28,46 @@ export default new Vuex.Store({
                 blogDate: "4-1-2022",
             },
         ],
-        editPostBlog: null
+        editPostBlog: null,
+
+        user: null,
+        profileAdmin: null,
+        profileEmail: null,
+        profileFirstName: null,
+        profileLastName: null,
+        profileUsername: null,
+        profileId: null,
+        profileInitials: null,
+        test: null
     },
     mutations: {
         TOOGLE_EDIT_POST(state, payload) {
             state.editPostBlog = payload
+        },
+        GET_CURRENT_USER_INFO(state, userResult) {
+            state.profileId = userResult.id
+            state.profileEmail = userResult.data().email
+            state.profileFirstName = userResult.data().firstName
+            state.profileLastName = userResult.data().lastName
+            state.profileUsername = userResult.data().userName
+            state.test = userResult
+        },
+        setProfileInitials(state) {
+            state.profileInitials =
+                state.profileFirstName.match(/(\b\S)?/g).join("") + state.profileLastName.match(/(\b\S)?/g).join("");
+        },
+        USER_TRAC(state, payload) {
+            state.user = payload
         }
     },
-    actions: {},
+    actions: {
+        async getCurrentUser({ commit }) {
+            const currentUser = await db.collection('user').doc(firebase.auth().currentUser.uid)
+            const userResult = await currentUser.get()
+            commit('GET_CURRENT_USER_INFO', userResult)
+            commit('setProfileInitials')
+            console.log(userResult);
+        }
+    },
     modules: {}
 })

@@ -24,6 +24,13 @@ export default {
   created() {
     this.checkRoute()
     console.log(firebase.auth().currentUser);
+    firebase.auth().onAuthStateChanged((user) => {
+        this.$store.commit('USER_TRAC',user)
+        if(user) {
+          this.$store.dispatch('getCurrentUser')
+        }
+      
+    })
   },
   methods: {
     checkRoute() {
