@@ -11,6 +11,37 @@
           <router-link  class="link" :to="{name:'CreatePost'}">Create Post</router-link>
           <router-link  class="link" :to="{name:'Login'}">Login/Register</router-link>
         </ul>
+          <!-- profile nav  -->
+          <div  class="profile" v-if="user">
+          <span @click="profileNavToogle">User</span>
+          <div v-show="profileNav" class="profile-menu">
+            <div class="info">
+              <p class="initials">{{profileInitials}}</p>
+              <div class="right">
+                <p>{{profileUsername}}</p>
+                <p>{{profileEmail}}</p>
+              </div>
+            </div>
+            <div class="options">
+              <div class="option">
+                <router-link class="option" :to="{ name: 'Profile' }">
+                  <userIcon class="icon" />
+                  <p>Profile</p>
+                </router-link>
+              </div>
+              <div  class="option">
+                <router-link class="option" :to="{ name: 'Admin' }">
+                  <adminIcon class="icon" />
+                  <p>Admin</p>
+                </router-link>
+              </div>
+              <div @click="signOut" class="option">
+                <signOutIcon class="icon" />
+                <p>Sign Out</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </nav>
     <menuIcon class="menu-icon"  @click="toggleMobileNav"  v-show="mobile"/>
@@ -21,22 +52,36 @@
           <router-link  class="link" :to="{name:'CreatePost'}">Create Post</router-link>
           <router-link  class="link" :to="{name:'Login'}">Login/Register</router-link>
         </ul>
+
     </transition>
   </header>
 </template>
 
 <script>
-import menuIcon from '../assets/Icons/bars-regular.svg'
+import menuIcon from "../assets/Icons/bars-regular.svg";
+import userIcon from "../assets/Icons/user-alt-light.svg";
+import adminIcon from "../assets/Icons/user-crown-light.svg";
+import signOutIcon from "../assets/Icons/sign-out-alt-regular.svg";
+import {mapState} from 'vuex'
+import firebase from "firebase/app"
+import "firebase/auth"
 export default {
   components:{
-    menuIcon
+    menuIcon,
+    userIcon,
+    adminIcon,
+    signOutIcon,
   },
   data() {
     return {
       mobile:null,
       mobileNav:null,
-      windowWidth:null
+      windowWidth:null,
+      profileNav:false
     }
+  },
+  computed:{
+    ...mapState(['user','profileInitials','profileEmail','profileUsername'])
   },
   methods:{
     checkScreen() {
@@ -52,12 +97,19 @@ export default {
     toggleMobileNav() {
       this.mobileNav = !this.mobileNav
       console.log("OK");
+    },
+    async signOut() {
+      await firebase.auth().signOut()
+    },
+    profileNavToogle() {
+      this.profileNav = !this.profileNav
     }
   },
   mounted() {
     window.addEventListener("resize",this.checkScreen)
     
-  }
+  },
+
 }
 </script>
 
@@ -114,9 +166,7 @@ header {
         border-radius: 50%;
         color: #fff;
         background-color: #303030;
-        span {
-          pointer-events: none;
-        }
+       
         .profile-menu {
           position: absolute;
           top: 60px;

@@ -5,6 +5,7 @@ import store from "./store";
 import Vue2Editor from "vue2-editor";
 import firebase from "firebase/app"
 import "firebase/auth"
+window.Reload = new Vue();
 
 Vue.use(Vue2Editor);
 

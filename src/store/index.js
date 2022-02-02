@@ -38,7 +38,6 @@ export default new Vuex.Store({
         profileUsername: null,
         profileId: null,
         profileInitials: null,
-        test: null
     },
     mutations: {
         TOOGLE_EDIT_POST(state, payload) {
@@ -66,7 +65,7 @@ export default new Vuex.Store({
             const userResult = await currentUser.get()
             commit('GET_CURRENT_USER_INFO', userResult)
             commit('setProfileInitials')
-            console.log(userResult);
+            console.log(currentUser);
         }
     },
     modules: {}

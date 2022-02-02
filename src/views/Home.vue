@@ -18,10 +18,10 @@
         </div>
       </div>
     </div>
-     <div class="updates">
+     <div class="updates" v-if="!user">
         <div class="container">
           <h2>never miss a post. Register for your free account today!</h2>
-          <router-link class="router-button" to="#">
+          <router-link class="router-button" :to="{ name: 'Register' }">
             Register for FireBlogs <Arrow class="arrow arrow-light" />
           </router-link>
         </div>
@@ -33,6 +33,7 @@
 import BlogCard from "../components/BlogCard.vue";
 import BlogPost from "../components/BlogPost.vue";
 import Arrow from "../assets/Icons/arrow-right-light.svg";
+import {mapState} from 'vuex'
 export default {
   name: "Home",
   components: { BlogPost, BlogCard, Arrow },
@@ -61,7 +62,8 @@ export default {
   computed:{
       blogCards() {
           return this.$store.state.blogCards
-      }
+      },
+      ...mapState(['user'])
   }
 };
 </script>
