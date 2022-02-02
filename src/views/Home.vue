@@ -40,8 +40,8 @@ export default {
   data() {
     return {
       welcomeScreen: {
-        title: "hello",
-        blogPost: "Lorem ipsum dolor sit amet.",
+        title: "Hello",
+        blogPost: "Welcome To Our Blog Website",
         welcomeScreen: true,
         photo: "car",
       },

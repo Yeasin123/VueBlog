@@ -49,7 +49,6 @@ export default new Vuex.Store({
             state.profileFirstName = userResult.data().firstName
             state.profileLastName = userResult.data().lastName
             state.profileUsername = userResult.data().userName
-            state.test = userResult
         },
         setProfileInitials(state) {
             state.profileInitials =
@@ -57,7 +56,19 @@ export default new Vuex.Store({
         },
         USER_TRAC(state, payload) {
             state.user = payload
-        }
+        },
+        CHANGE_FIRST_NAME(state, payload) {
+            state.profileFirstName = payload
+        },
+        CHANGE_LAST_NAME(state, payload) {
+            state.profileLastName = payload
+        },
+        CHANGE_USER_NAME(state, payload) {
+            state.profileUsername = payload
+        },
+        CHANGE_EMAIL(state, payload) {
+            state.profileEmail = payload
+        },
     },
     actions: {
         async getCurrentUser({ commit }) {
@@ -65,7 +76,17 @@ export default new Vuex.Store({
             const userResult = await currentUser.get()
             commit('GET_CURRENT_USER_INFO', userResult)
             commit('setProfileInitials')
-            console.log(currentUser);
+                // console.log(currentUser);
+        },
+        async profileUpdate({ commit, state }) {
+            const user = await db.collection('user').doc(state.profileId)
+            console.log(user);
+            await user.update({
+                firstName: state.profileFirstName,
+                lastName: state.profileLastName,
+                userName: state.profileUsername,
+            })
+            commit('setProfileInitials')
         }
     },
     modules: {}

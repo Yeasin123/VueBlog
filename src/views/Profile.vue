@@ -1,10 +1,10 @@
 <template>
   <div class="profile">
-    <Modal v-if="modalActive" :modalMessage="modalMessage" v-on:close-modal="closeModal" />
+    <Modal v-if="modalActive" :modalMessage="modalMessage" @colse-modal="closeModal" />
     <div class="container">
       <h2>Account Settings</h2>
       <div class="profile-info">
-        <div class="initials"></div>
+        <div class="initials">{{profileInitial}}</div>
         <div class="admin-badge">
           <adminIcon class="icon" />
           <span>admin</span>
@@ -19,7 +19,7 @@
         </div>
         <div class="input">
           <label for="username">Username:</label>
-          <input type="text" id="username" v-model="username" />
+          <input type="text" id="username" v-model="userName" />
         </div>
         <div class="input">
           <label for="email">Email:</label>
@@ -34,7 +34,6 @@
 <script>
 import Modal from "../components/Modal";
 import adminIcon from "../assets/Icons/user-crown-light.svg";
-import {mapState} from 'vuex'
 export default {
   name: "Profile",
   components: {
@@ -43,20 +42,52 @@ export default {
   },
   data() {
     return {
-      firstName:"",
-      lastName:"",
-      username:"",
-      email:"",
       modalActive:false,
       modalMessage:""
     }
   },
   computed:{
-    ...mapState(['user','profileInitials','profileEmail','profileUsername'])
+    firstName:{
+      get() {
+        return this.$store.state.profileFirstName
+      },
+      set(payload) {
+        this.$store.commit('CHANGE_FIRST_NAME',payload )
+      },
+    },
+    lastName:{
+      get() {
+        return this.$store.state.profileLastName
+      },
+      set(payload) {
+        this.$store.commit('CHANGE_LAST_NAME',payload )
+      },
+    },
+    userName:{
+      get() {
+        return this.$store.state.profileUsername
+      },
+      set(payload) {
+        this.$store.commit('CHANGE_USER_NAME',payload )
+      },
+    },
+    email:{
+      get() {
+        return this.$store.state.profileEmail
+      },
+    },
+    profileInitial() {
+      return this.$store.state.profileInitials
+    }
   },
  methods:{
     updateProfile() {
-    console.log("OK");
+      this.modalActive = !this.modalActive
+      this.modalMessage = "Profile Info Updated Successfully"
+      this.$store.dispatch('profileUpdate')
+  },
+  closeModal() {
+    this.modalActive = false
   }
  }
  

@@ -13,11 +13,12 @@
         </ul>
           <!-- profile nav  -->
           <div  class="profile" v-if="user">
-          <span @click="profileNavToogle">User</span>
+          <span @click="profileNavToogle">{{profileInitials}}</span>
           <div v-show="profileNav" class="profile-menu">
             <div class="info">
               <p class="initials">{{profileInitials}}</p>
               <div class="right">
+                <p>{{profileFirstName}}</p>
                 <p>{{profileUsername}}</p>
                 <p>{{profileEmail}}</p>
               </div>
@@ -81,7 +82,7 @@ export default {
     }
   },
   computed:{
-    ...mapState(['user','profileInitials','profileEmail','profileUsername'])
+    ...mapState(['user','profileInitials','profileEmail','profileUsername','profileFirstName'])
   },
   methods:{
     checkScreen() {
@@ -98,8 +99,8 @@ export default {
       this.mobileNav = !this.mobileNav
       console.log("OK");
     },
-    async signOut() {
-      await firebase.auth().signOut()
+     async signOut() {
+      await firebase.auth().signOut() 
     },
     profileNavToogle() {
       this.profileNav = !this.profileNav
@@ -107,7 +108,6 @@ export default {
   },
   mounted() {
     window.addEventListener("resize",this.checkScreen)
-    
   },
 
 }
