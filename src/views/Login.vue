@@ -6,6 +6,7 @@
         Don't have an account?
         <router-link class="router-link" :to="{ name: 'Register' }">Register</router-link>
       </p>
+      <!-- <a class="google" @click="loginWithGoogle"> <i class="fab fa-google"></i> Login with google</a> -->
       <h2>Login to FireBlogs</h2>
       <div class="inputs">
         <div class="input">
@@ -31,6 +32,7 @@ import email from "../assets/Icons/envelope-regular.svg";
 import password from "../assets/Icons/lock-alt-solid.svg";
 import firebase from "firebase/app"
 import "firebase/auth"
+import db from "../firebase/firebaseInit";
 import Loading from '../components/Loading.vue';
 
 export default {
@@ -69,6 +71,27 @@ export default {
         this.errorMsg = "Please filled all the recourd"
       }
       
+    },
+     async loginWithGoogle() {
+       try {
+         var provider = new firebase.auth.GoogleAuthProvider();
+         await firebase.auth().signInWithPopup(provider)
+          const result = await firebase.auth()
+          console.log(result);
+          const databse = db.collection("user").doc(result.currentUser.uid)
+          databse.set({
+            firstName:result.displayName,
+            lastName:"Imran",
+            userName:"Imu",
+             email:result.email,
+          })
+          this.$router.push({name:'Home'})
+         
+       } 
+       catch (error) {
+         console.log(error.message);
+       }
+      
     }
   },
 };
@@ -88,7 +111,7 @@ export default {
   }
 
   .login-register {
-    margin-bottom: 32px;
+    margin-bottom: 22px;
 
     .router-link {
       color: #000;
@@ -186,5 +209,15 @@ export default {
       display: initial;
     }
   }
+  .google {
+    padding: 12px;
+    background: #08c;
+    color: #fff;
+    cursor: pointer;
+    }
+    // .fa-google{
+    //   color:#F73E2F
+    // }
+
 }
 </style>

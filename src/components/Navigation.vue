@@ -12,8 +12,8 @@
           <router-link  class="link" :to="{name:'Login'}">Login/Register</router-link>
         </ul>
           <!-- profile nav  -->
-          <div  class="profile" v-if="user">
-          <span @click="profileNavToogle">{{profileInitials}}</span>
+          <div  class="profile" v-if="user"  @click="profileNavToogle">
+          <span>{{profileInitials}}</span>
           <div v-show="profileNav" class="profile-menu">
             <div class="info">
               <p class="initials">{{profileInitials}}</p>

@@ -97,8 +97,7 @@ export default {
           this.email,
           this.password
         );
-        const result = await createUser
-        const database = db.collection('user').doc(result.user.uid)
+        const database = db.collection('user').doc(createUser.user.uid)
         this.modalActive=true
         await database.set({
           firstName:this.firstName,
