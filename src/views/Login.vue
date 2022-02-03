@@ -6,7 +6,7 @@
         Don't have an account?
         <router-link class="router-link" :to="{ name: 'Register' }">Register</router-link>
       </p>
-      <!-- <a class="google" @click="loginWithGoogle"> <i class="fab fa-google"></i> Login with google</a> -->
+      <a class="google" @click="loginWithGoogle"> <i class="fab fa-google"></i> Login with google</a>
       <h2>Login to FireBlogs</h2>
       <div class="inputs">
         <div class="input">
@@ -76,15 +76,15 @@ export default {
        try {
          var provider = new firebase.auth.GoogleAuthProvider();
          await firebase.auth().signInWithPopup(provider)
-          const result = await firebase.auth()
-          console.log(result);
-          const databse = db.collection("user").doc(result.currentUser.uid)
-          databse.set({
-            firstName:result.displayName,
-            lastName:"Imran",
-            userName:"Imu",
-             email:result.email,
-          })
+          const userInfo = await firebase.auth().currentUser
+          const databse = db.collection("user").doc(userInfo.uid)
+          const userData =  databse.set({
+            firstName:userInfo.displayName,
+            lastName:"",
+            userName:"",
+            email:userInfo.email,
+            })
+            this.$store.commit('USER_TRAC',userData)
           this.$router.push({name:'Home'})
          
        } 
