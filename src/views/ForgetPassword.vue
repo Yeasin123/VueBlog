@@ -54,6 +54,7 @@ export default {
       modalClose() {
       this.modalActive = false
       this.email=""
+      this.$router.push({name:'Login'})
    },
    passwordReset() {
       if(this.email !== "") {
@@ -63,7 +64,6 @@ export default {
          this.modalActive = true
          this.loading = false
          this.modalMessage = "If your email is valid! then check your email to reset the password"
-         this.$router.push({name:'Login'})
       })
       .catch((error) => {
         this.loading = false

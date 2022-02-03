@@ -64,11 +64,13 @@ export default {
       }).catch(error => {
         this.error = true
         this.errorMsg = error.message
+        this.loadingActive=false
       })
       }
       else{
         this.error = true
         this.errorMsg = "Please filled all the recourd"
+         
       }
       
     },
@@ -85,11 +87,12 @@ export default {
             email:userInfo.email,
             })
             this.$store.commit('USER_TRAC',userData)
-          this.$router.push({name:'Home'})
+            this.$router.push({name:'Home'})
          
        } 
        catch (error) {
          console.log(error.message);
+
        }
       
     }

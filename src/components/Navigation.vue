@@ -8,7 +8,7 @@
         <ul v-show="!mobile">
           <router-link class="link" :to="{name:'Home'}">Home</router-link>
           <router-link class="link" :to="{name:'Blogs'}">Blogs</router-link>
-          <router-link  class="link" :to="{name:'CreatePost'}">Create Post</router-link>
+          <router-link v-if="user"  class="link" :to="{name:'CreatePost'}">Create Post</router-link>
           <router-link  class="link" :to="{name:'Login'}">Login/Register</router-link>
         </ul>
           <!-- profile nav  -->
@@ -50,7 +50,7 @@
           <ul class="mobile-nav" v-show="mobileNav">
           <router-link class="link" :to="{name:'Home'}">Home</router-link>
           <router-link class="link" :to="{name:'Blogs'}">Blogs</router-link>
-          <router-link  class="link" :to="{name:'CreatePost'}">Create Post</router-link>
+          <router-link v-if="user" class="link" :to="{name:'CreatePost'}">Create Post</router-link>
           <router-link  class="link" :to="{name:'Login'}">Login/Register</router-link>
         </ul>
 
