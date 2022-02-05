@@ -38,6 +38,7 @@ const ImageResize = require("quill-image-resize-module").default;
 Quill.register("modules/imageResize", ImageResize);
 import firebase from "firebase/app";
 import "firebase/storage";
+import db from "../firebase/firebaseInit";
 export default {
   components: { Loading, BlogPhotoPreview },
 
@@ -56,6 +57,12 @@ export default {
     };
   },
   computed:{
+    profileId() {
+      return this.$store.state.profileId
+    },
+     blogPhotoName() {
+      return this.$store.state.blogPhotoName
+    },
     blogTitle:{
       get() {
         return this.$store.state.blogTitle
@@ -80,7 +87,34 @@ export default {
     uploadBlog() {
       if(this.blogHTML.length !== 0 && this.blogTitle.length !== 0 ){
         if(this.file) {
-          console.log("OK");
+          this.loading = true
+        const storageRef = firebase.storage().ref();
+        const docRef = storageRef.child(`documents/blogPostPhotos/${this.$store.state.blogPhotoName}`);
+        docRef.put(this.file).on(
+         "state_changed",
+         (snapshot) => {
+          console.log(snapshot);
+        },
+        (err) => {
+          console.log(err);
+        }, async () => {
+          const downloadUrl = await docRef.getDownloadURL();
+          const timeStamp = await Date.now();
+          const database = db.collection('blogPosts').doc();
+
+          await database.set({
+             blogID: database.id,
+             blogHTML: this.blogHTML,
+             blogCoverPhoto: downloadUrl,
+             blogCoverPhotoName: this.blogPhotoName,
+             blogTitle: this.blogTitle,
+             profileId: this.profileId,
+             date: timeStamp,
+          })
+          this.blogHTML ="",
+          this.blogTitle = "",
+           this.loading = false
+         });
         }
          else{
         this.error = true
@@ -97,6 +131,7 @@ export default {
           this.error = false
         },2000)
       }
+      
     },
     fileChange() {
       this.file = this.$refs.blogPhoto.files[0]

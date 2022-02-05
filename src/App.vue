@@ -28,8 +28,8 @@ export default {
         if(user) {
           this.$store.dispatch('getCurrentUser')
         }
-      
     })
+    this.$store.dispatch('getAllPosts')
   },
   methods: {
     checkRoute() {

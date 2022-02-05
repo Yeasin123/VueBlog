@@ -28,6 +28,7 @@ export default new Vuex.Store({
                 blogDate: "4-1-2022",
             },
         ],
+        blogPosts: [],
         postLoaded: null,
         blogHTML: "",
         blogTitle: "",
@@ -100,6 +101,26 @@ export default new Vuex.Store({
             commit('GET_CURRENT_USER_INFO', currentUser)
             commit('setProfileInitials')
         },
+        async getAllPosts({ state }) {
+            const database = await db.collection('blogPosts').orderBy('date', 'desc');
+            const result = await database.get()
+            result.forEach((doc) => {
+                if (!state.blogPosts.some((post) => post.blogID === doc.id)) {
+                    const data = {
+                        blogID: doc.data().blogID,
+                        blogHTML: doc.data().blogHTML,
+                        blogCoverPhotoName: doc.data().blogCoverPhotoName,
+                        blogTitle: doc.data().blogTitle,
+                        profileId: doc.data().profileId,
+                        date: doc.data().date
+                    };
+                    state.blogPosts.push(data);
+
+                }
+            })
+            console.log(state.blogPosts);
+        },
+
         async profileUpdate({ commit, state }) {
             const user = await db.collection('user').doc(state.profileId)
             await user.update({
