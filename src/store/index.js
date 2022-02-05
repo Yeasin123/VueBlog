@@ -29,7 +29,7 @@ export default new Vuex.Store({
             },
         ],
         postLoaded: null,
-        blogHTML: "Write your blog title here...",
+        blogHTML: "",
         blogTitle: "",
         blogPhotoName: "",
         blogPhotoFileURL: null,
@@ -86,6 +86,9 @@ export default new Vuex.Store({
         },
         CREATE_BLOG_URL(state, payload) {
             state.blogPhotoFileURL = payload
+        },
+        OPEN_PHOTO_PREVIEW(state) {
+            state.blogPhotoPreview = !state.blogPhotoPreview
         }
 
 

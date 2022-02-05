@@ -2,7 +2,7 @@
   <div class="modal" ref="modal">
     <div class="modal-content">
       <close @click="closePreview" class="icon" />
-      <img :src="this.blogCoverPhoto" alt="" />
+      <img :src="blogCoverPhoto" alt="" />
     </div>
   </div>
 </template>
@@ -15,7 +15,7 @@ export default {
   },
   methods: {
     closePreview() {
-      this.$store.commit("openPhotoPreview");
+      this.$store.commit("OPEN_PHOTO_PREVIEW");
     },
   },
   computed: {
