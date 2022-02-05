@@ -28,8 +28,14 @@ export default new Vuex.Store({
                 blogDate: "4-1-2022",
             },
         ],
-        editPostBlog: null,
+        postLoaded: null,
+        blogHTML: "Write your blog title here...",
+        blogTitle: "",
+        blogPhotoName: "",
+        blogPhotoFileURL: null,
+        blogPhotoPreview: null,
 
+        editPostBlog: null,
         user: null,
         profileAdmin: null,
         profileEmail: null,
@@ -69,6 +75,21 @@ export default new Vuex.Store({
         CHANGE_EMAIL(state, payload) {
             state.profileEmail = payload
         },
+        NEW_BLOG_POST(state, payload) {
+            state.blogHTML = payload
+        },
+        NEW_BLOG_TITLE(state, payload) {
+            state.blogTitle = payload
+        },
+        BLOG_PHOTO_NAME_CHANGE(state, payload) {
+            state.blogPhotoName = payload
+        },
+        CREATE_BLOG_URL(state, payload) {
+            state.blogPhotoFileURL = payload
+        }
+
+
+
     },
     actions: {
         async getCurrentUser({ commit }) {
