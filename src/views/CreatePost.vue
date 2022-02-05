@@ -114,6 +114,7 @@ export default {
           this.blogHTML ="",
           this.blogTitle = "",
            this.loading = false
+           this.$router.push({name:'ViewBlog'})
          });
         }
          else{
