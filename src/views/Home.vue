@@ -2,7 +2,7 @@
   <div class="home">
     <blog-post :post="welcomeScreen"></blog-post>
     <blog-post
-      v-for="(post, index) in blogPosts"
+      v-for="(post, index) in blogPostFeeds"
       :key="index"
       :post="post"
     ></blog-post>
@@ -11,7 +11,7 @@
         <h3 >View More Recent Blogs</h3>
         <div class="blog-cards">
           <blog-card
-            v-for="(blogCard, index) in blogCards"
+            v-for="(blogCard, index) in blogPostCards"
             :key="index"
             :postCard="blogCard"
           ></blog-card>
@@ -45,25 +45,20 @@ export default {
         welcomeScreen: true,
         photo: "car",
       },
-      blogPosts: [
-        {
-          title: " This is first blog",
-          blogHtml: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          blogCoverPhoto: "penguin",
-        },
-        {
-          title: " This is seconde blog",
-          blogHtml: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-          blogCoverPhoto: "fruit",
-        },
-      ],
     };
   },
   computed:{
       blogCards() {
           return this.$store.state.blogCards
       },
+       blogPostFeeds () {
+        return this.$store.getters.blogPostFeeds
+      },
+        blogPostCards () {
+        return this.$store.getters.blogPostCards
+      },
       ...mapState(['user'])
+     
   }
 };
 </script>

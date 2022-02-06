@@ -21,7 +21,7 @@ export default {
     components: { BlogCard },
     computed:{
       blogCards() {
-          return this.$store.state.blogCards
+          return this.$store.state.blogPosts
       },
       editPostBlog: {
           get() {

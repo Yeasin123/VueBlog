@@ -8,10 +8,10 @@
         <Delete class="delete" />
       </div>
     </div>
-    <img :src="require(`../assets/blogCards/${postCard.blogCoverPhoto}.jpg`)" alt="" />
+    <img :src="postCard.blogCoverPhoto" alt="" />
     <div class="info">
       <h4>{{postCard.blogTitle}}</h4>
-      <h6>Posted on: {{postCard.blogDate}}</h6>
+      <h6>Posted on: {{new Date(postCard.date).toDateString()}}</h6>
       <router-link class="link" to="#">
         View The Post <Arrow class="arrow" />
       </router-link>
@@ -37,7 +37,7 @@ export default {
   computed: {
     editPost() {
      return this.$store.state.editPostBlog
-    }
+    },
   },
 };
 </script>
@@ -111,7 +111,7 @@ export default {
   .info {
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 47%;
     z-index: 3;
     padding: 32px 16px;
     color: #000;
