@@ -101,6 +101,7 @@ export default {
     },
      async signOut() {
       await firebase.auth().signOut() 
+      this.$router.push({name:"Home"})
     },
     profileNavToogle() {
       this.profileNav = !this.profileNav

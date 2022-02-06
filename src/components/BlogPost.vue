@@ -5,11 +5,11 @@
         <h2 v-if="post.welcomeScreen">{{post.title}}</h2>
         <h2 v-else>{{post.blogTitle}}</h2>
          <p v-if="post.welcomeScreen">{{post.blogPost }}</p>
-         <p class="content-preview" v-else v-html="post.blogHtml"></p>
-         <router-link class="link link-light" v-if="post.welcomeScreen" :to="{name:'Login'}">
+         <p class="content-preview" v-else v-html="post.blogHTML"></p>
+         <router-link class="link linkTap" v-if="post.welcomeScreen" :to="{name:'Login'}">
              Login/Register<Arrow class="arrow arrow-light" />
          </router-link>
-         <router-link class="link link-light" v-else to="#">
+         <router-link class="link linkTap" v-else :to="{name:'ViewBlog',params:{id:post.blogID}}">
             View the post<Arrow class="arrow" />
          </router-link>
        </div>
@@ -92,18 +92,20 @@ export default {
         align-items: center;
         margin-top: 32px;
         padding-bottom: 4px;
-        border-bottom: 1px solid transparent;
         transition: 0.5s ease-in all;
-        &:hover {
-          border-bottom-color: #303030;
-        }
+        text-decoration: none;
       }
       .link-light {
         &:hover {
-          border-bottom-color: #ffff;
+          border-bottom-color: #000;
         }
       }
     }
+    .linkTap{
+    text-decoration: none;
+    font-weight: 600;
+    // border:1px solid #000
+  }
   }
   .blog-photo {
     order: 1;
@@ -135,6 +137,7 @@ export default {
   .blog-content {
     background-color: #303030;
     color: #fff;
+    text-decoration: none;
   }
 }
 </style>

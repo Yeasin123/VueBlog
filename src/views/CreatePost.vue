@@ -7,7 +7,7 @@
         <p style="text-align:center"><span>Error:</span>{{ this.errorMsg }}</p>
       </div>
       <div class="blog-info">
-        <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" />
+        <input type="text" placeholder="Enter Blog Title" v-model="blogTitle" /> 
         <div class="upload-file">
           <label for="blog-photo">Upload Cover Photo</label>
           <input type="file" ref="blogPhoto" @change="fileChange" id="blog-photo" accept=".png, .jpg, ,jpeg" />
@@ -22,7 +22,7 @@
       </div>
       <div class="blog-actions">
         <button @click="uploadBlog">Publish Blog</button>
-        <router-link class="router-button" :to="{ name: 'BlogPreview' }">Post Preview</router-link>
+        <router-link class="router-button" :to="{ name:'BlogPreview'}">Post Preview</router-link>
       </div>
     </div>
   </div>

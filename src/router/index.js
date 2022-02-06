@@ -11,7 +11,7 @@ import ForgetPassword from "../views/ForgetPassword.vue";
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
 import Profile from "../views/Profile.vue";
-
+import store from '@/store'
 Vue.use(VueRouter);
 
 const routes = [{
@@ -52,6 +52,11 @@ const routes = [{
         component: CreatePost,
         meta: {
             title: 'CreatePost'
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state.user) {
+                next()
+            } else next({ name: 'Login' })
         }
     },
     {
@@ -92,10 +97,15 @@ const routes = [{
         component: Profile,
         meta: {
             title: 'Profile'
+        },
+        beforeEnter: (to, from, next) => {
+            if (store.state['user']) {
+                next()
+            } else next({ name: 'Login' })
         }
     },
     {
-        path: "/view-blog",
+        path: "/view-blog/:id",
         name: "ViewBlog",
         component: ViewBlog,
         meta: {

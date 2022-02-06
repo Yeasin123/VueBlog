@@ -11,7 +11,6 @@
 <script>
 import { mapState } from 'vuex'
 export default {
-  name:'PostPreview',
   computed:{
     ...mapState(['blogHTML','blogTitle','blogPhotoFileURL'])
   }

@@ -1,5 +1,5 @@
 <template>
-  <div class="profile">
+  <div class="profile" v-if="user">
     <Modal v-if="modalActive" :modalMessage="modalMessage" @colse-modal="closeModal" />
     <div class="container">
       <h2>Account Settings</h2>
@@ -34,6 +34,7 @@
 <script>
 import Modal from "../components/Modal";
 import adminIcon from "../assets/Icons/user-crown-light.svg";
+import { mapState } from 'vuex';
 export default {
   name: "Profile",
   components: {
@@ -78,7 +79,8 @@ export default {
     },
     profileInitial() {
       return this.$store.state.profileInitials
-    }
+    },
+    ...mapState(['user'])
   },
  methods:{
     updateProfile() {

@@ -1,10 +1,10 @@
 <template>
   <div class="blog-card">
-    <div  class="icons" v-show="editPost">
-      <div  class="icon">
+    <div  class="icons" v-show="editPost" >
+      <div  class="icon" v-if="user">
         <Edit class="edit" />
       </div>
-      <div  class="icon">
+      <div  class="icon" v-if="user">
         <Delete class="delete" />
       </div>
     </div>
@@ -12,7 +12,7 @@
     <div class="info">
       <h4>{{postCard.blogTitle}}</h4>
       <h6>Posted on: {{new Date(postCard.date).toDateString()}}</h6>
-      <router-link class="link" to="#">
+      <router-link class="link" :to="{name:'ViewBlog',params:{id:postCard.blogID}}">
         View The Post <Arrow class="arrow" />
       </router-link>
     </div>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapState } from 'vuex';
 import Arrow from "../assets/Icons/arrow-right-light.svg";
 import Edit from "../assets/Icons/edit-regular.svg";
 import Delete from "../assets/Icons/trash-regular.svg";
@@ -38,6 +39,7 @@ export default {
     editPost() {
      return this.$store.state.editPostBlog
     },
+    ...mapState(['user'])
   },
 };
 </script>
