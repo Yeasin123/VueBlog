@@ -1,10 +1,11 @@
 <template>
   <div class="blog-card">
+    <loading v-show="loading"></loading>
     <div  class="icons" v-show="editPost" >
       <div  class="icon" v-if="user">
         <Edit class="edit" />
       </div>
-      <div  class="icon" v-if="user">
+      <div @click="deletePost" class="icon" v-if="user">
         <Delete class="delete" />
       </div>
     </div>
@@ -24,6 +25,7 @@ import { mapState } from 'vuex';
 import Arrow from "../assets/Icons/arrow-right-light.svg";
 import Edit from "../assets/Icons/edit-regular.svg";
 import Delete from "../assets/Icons/trash-regular.svg";
+import Loading from './Loading.vue';
 export default {
   name: "blogCard",
   props:['postCard'],
@@ -31,9 +33,20 @@ export default {
     Arrow,
     Edit,
     Delete,
+    Loading,
+  },
+  data() {
+    return {
+      loading:null
+    }
   },
   methods: {
-   
+   deletePost() {
+     this.loading= true
+     this.$store.dispatch("deletePost",this.postCard.blogID)
+     this.loading= false
+     console.log(this.postCard.blogID);
+   }
   },
   computed: {
     editPost() {

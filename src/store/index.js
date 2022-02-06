@@ -77,9 +77,11 @@ export default new Vuex.Store({
         },
         OPEN_PHOTO_PREVIEW(state) {
             state.blogPhotoPreview = !state.blogPhotoPreview
+        },
+
+        DELETE_BLOG_POST(state, payload) {
+            state.blogPosts = state.blogPosts.filter(post => post.blogID !== payload.id)
         }
-
-
 
     },
     actions: {
@@ -89,9 +91,8 @@ export default new Vuex.Store({
             commit('setProfileInitials')
         },
         async getAllPosts({ state }) {
-            const database = await db.collection('blogPosts').orderBy('date', 'desc');
-            const result = await database.get()
-            result.forEach((doc) => {
+            const database = await db.collection('blogPosts').orderBy('date', 'desc').get();
+            database.forEach((doc) => {
                 if (!state.blogPosts.some((post) => post.blogID === doc.id)) {
                     const data = {
                         blogID: doc.data().blogID,
@@ -102,7 +103,7 @@ export default new Vuex.Store({
                         profileId: doc.data().profileId,
                         date: doc.data().date
                     };
-                    state.blogPosts.push(data);
+                    state.blogPosts.push(data)
 
                 }
             })
@@ -116,6 +117,11 @@ export default new Vuex.Store({
                 userName: state.profileUsername,
             })
             commit('setProfileInitials')
+        },
+        async deletePost({ commit }, payload) {
+            const getPost = await db.collection('blogPosts').doc(payload)
+            await getPost.delete()
+            commit("DELETE_BLOG_POST", payload)
         }
     },
     modules: {}

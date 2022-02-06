@@ -114,7 +114,8 @@ export default {
           this.blogHTML ="",
           this.blogTitle = "",
            this.loading = false
-           this.$router.push({name:'ViewBlog'})
+           await this.$store.dispatch('getAllPosts')
+           this.$router.push({name:'ViewBlog',params:{id:database.id}})
          });
         }
          else{

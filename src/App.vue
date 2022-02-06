@@ -21,7 +21,7 @@ export default {
       navigationRoute:null
     };
   },
-  created() {
+   created() {
     this.checkRoute()
     firebase.auth().onAuthStateChanged((user) => {
         this.$store.commit('USER_TRAC',user)
@@ -29,7 +29,8 @@ export default {
           this.$store.dispatch('getCurrentUser')
         }
     })
-    this.$store.dispatch('getAllPosts')
+     this.$store.dispatch('getAllPosts')
+          
   },
   methods: {
     checkRoute() {

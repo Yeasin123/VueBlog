@@ -58,8 +58,9 @@ export default {
         return this.$store.getters.blogPostCards
       },
       ...mapState(['user'])
-     
-  }
+  },
+ 
+  
 };
 </script>
 

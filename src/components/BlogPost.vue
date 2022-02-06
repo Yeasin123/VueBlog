@@ -6,7 +6,7 @@
         <h2 v-else>{{post.blogTitle}}</h2>
          <p v-if="post.welcomeScreen">{{post.blogPost }}</p>
          <p class="content-preview" v-else v-html="post.blogHTML"></p>
-         <router-link class="link linkTap" v-if="post.welcomeScreen" :to="{name:'Login'}">
+         <router-link class="link linkReg" v-if="post.welcomeScreen" :to="{name:'Login'}">
              Login/Register<Arrow class="arrow arrow-light" />
          </router-link>
          <router-link class="link linkTap" v-else :to="{name:'ViewBlog',params:{id:post.blogID}}">
@@ -31,7 +31,7 @@ export default {
     props:['post'],
     computed:{
       ...mapState(['user'])
-    }
+    },
     
 }
 </script>
@@ -95,17 +95,16 @@ export default {
         transition: 0.5s ease-in all;
         text-decoration: none;
       }
-      .link-light {
-        &:hover {
-          border-bottom-color: #000;
-        }
-      }
+      
     }
     .linkTap{
     text-decoration: none;
     font-weight: 600;
     // border:1px solid #000
-  }
+    }
+    .linkReg{
+      color:#fff
+    }
   }
   .blog-photo {
     order: 1;

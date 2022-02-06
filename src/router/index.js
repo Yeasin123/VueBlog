@@ -14,7 +14,9 @@ import Profile from "../views/Profile.vue";
 import store from '@/store'
 Vue.use(VueRouter);
 
-const routes = [{
+const routes = [
+
+    {
         path: "/",
         name: "Home",
         component: Home,
@@ -44,7 +46,12 @@ const routes = [{
         component: BlogPreview,
         meta: {
             title: 'BlogPreview'
-        }
+        },
+        // beforeEnter: (to, from, next) => {
+        //     if (store.state['user']) {
+        //         next()
+        //     } else next({ name: 'Login' })
+        // }
     },
     {
         path: "/create-post",
@@ -110,7 +117,7 @@ const routes = [{
         component: ViewBlog,
         meta: {
             title: 'ViewBlog'
-        }
+        },
     },
 
 ];
