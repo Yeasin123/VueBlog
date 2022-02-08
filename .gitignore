@@ -2,6 +2,7 @@
 node_modules
 /dist
 
+firebaseConfig/
 
 # local env files
 .env.local
@@ -12,7 +13,7 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-src/firebase/firebaseInit.js
+
 
 # Editor directories and files
 .idea
